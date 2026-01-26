@@ -23,16 +23,28 @@ abstract  class Record {
         typeRecord = type
         tags = ArrayList<String>();
     }
-
+    //метод для получения тегов
     fun getTags():ArrayList<String>{
         return tags;
     }
-
+    //метод для добавления тега
     fun setTag(tag : String){
         if(!tag.isEmpty()){
             if(!tags.contains(tag)){
                 tags.add(tag);
             }
         }
+    }
+    //метод для удаления тега
+    fun removeTag(tag : String){
+        if(!tag.isEmpty()){
+            if(tags.contains(tag)){
+                tags.remove(tag);
+            }
+        }
+    }
+    //метод для добавления заголовка
+    fun setTitle(title : String){
+        titleRecord = title;
     }
 }
