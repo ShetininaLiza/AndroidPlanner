@@ -12,22 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recordsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="94dp"
-            tools:layout_editor_absoluteY="16dp" />
+            tools:layout_editor_absoluteY="16dp" >
 
-        <Button
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageButton
             android:id="@+id/btnAddRecord"
             android:layout_width="62dp"
             android:layout_height="58dp"
-            android:text="+"
-            app:icon="@android:drawable/ic_input_add"
-            app:iconPadding="0dp"
+            android:contentDescription="Добавление записи"
+            android:src="@android:drawable/ic_menu_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
