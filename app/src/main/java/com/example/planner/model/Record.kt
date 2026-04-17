@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.example.planner.help.TypeRecord
 import java.time.LocalDate
 
+//@Entity(tableName = "records")
 abstract  class Record {
     private var num : Int = 0;
     private var textRecord : String = "";
