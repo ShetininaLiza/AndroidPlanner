@@ -24,5 +24,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "AndroidPlanner"
 include(":app")
-include(":models")
-include(":interaction")
