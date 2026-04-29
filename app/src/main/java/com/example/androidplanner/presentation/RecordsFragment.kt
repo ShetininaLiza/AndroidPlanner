@@ -32,7 +32,6 @@ import kotlin.toString
 
 class RecordsFragment: Fragment(R.layout.fragment_records) {
 
-    //val recordAdapter =  RecordAdapter()
     var recordsList : MutableList<PresentationRecordItem> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +50,8 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         super.onViewCreated(view, savedInstanceState)
         val recordsRecycle = view.findViewById<RecyclerView>(R.id.recordsList)
         recordsRecycle.layoutManager = LinearLayoutManager(view.context)
+        val recordAdapter =  RecordAdapter(view.context)
         observerData()
-        val recordAdapter =  RecordAdapter()
         recordAdapter.data= recordsList;
         recordsRecycle.adapter = recordAdapter
 
@@ -64,7 +63,6 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
                 .commit()
         }
     }
-
     @SuppressLint("RestrictedApi")
     private fun observerData(){
         Log.v("observerData", "FRAGMENT || observerData")
@@ -77,9 +75,8 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         lifecycleScope.launch {
             var list = viewModel?.records?.value
             Log.v("FRAGMENT", list?.size.toString())
-            //recordsList = list as MutableList<PresentationRecordItem>
-
-            for(i in 1..5 step 1){
+            //ЭТО НАДО ДЛЯ ПРОВЕРКИ
+            for(i in 1..10 step 1){
                 var item = PresentationRecordItem(i,  "Заметка $i", "Заметка $i")
                 recordsList.add(item)
             }

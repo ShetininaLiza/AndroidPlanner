@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,
             RecordViewModelFacory(getRecordList, mapper),
         )[RecordViewModel::class.java]
-        val container = findViewById<FragmentContainerView>(R.id.fragmentContainer)
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer,RecordsFragment())
