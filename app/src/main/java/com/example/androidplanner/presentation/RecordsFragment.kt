@@ -65,21 +65,17 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){
-        Log.v("observerData", "FRAGMENT || observerData")
+        //Log.v("observerData", "FRAGMENT || observerData")
         var size = activity?.viewModelStore?.keys()?.size
-        Log.v("Fragment", "FRAGMINt || VM: $size")
+        //Log.v("Fragment", "FRAGMINt || VM: $size")
         activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
         var viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }
-        Log.v("Fragment", "OK!!!!!!")
+        //Log.v("Fragment", "OK!!!!!!")
 
         lifecycleScope.launch {
             var list = viewModel?.records?.value
-            Log.v("FRAGMENT", list?.size.toString())
-            //ЭТО НАДО ДЛЯ ПРОВЕРКИ
-            for(i in 1..10 step 1){
-                var item = PresentationRecordItem(i,  "Заметка $i", "Заметка $i")
-                recordsList.add(item)
-            }
+            //Log.v("FRAGMENT", "LIST_SIZE: $list?.size.toString()")
+            list?.forEach {item-> recordsList.add(item)}
         }
     }
 }

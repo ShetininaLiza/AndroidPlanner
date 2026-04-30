@@ -27,7 +27,7 @@ class RecordViewModel(private val getRecordList : GetRecordListUseCase,
         */
         var list: MutableList<PresentationRecordItem> = mutableListOf();
         for(i in 1..5 step 1){
-            var data = PresentationRecordItem(0,"Заметка $i", "Заметка $i")
+            var data = PresentationRecordItem(0,"Заметка $i", "Текст заметки $i")
             list.add(data)
         }
         mutableListRecords.value = list

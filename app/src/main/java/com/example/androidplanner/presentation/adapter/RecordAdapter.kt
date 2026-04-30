@@ -35,13 +35,15 @@ class RecordAdapter(private val context: Context) : RecyclerView.Adapter<RecordA
         // let — одна из функций области видимости (scope functions),
         // которая позволяет выполнить блок кода в контексте объекта.
         data[pozition].let {
-            holder.textTitle.setText(data[pozition].title)
+            holder.titleRecord.setText(data[pozition].title)
+            holder.textRecord.setText(data[pozition].text)
         }
     }
 
     override fun getItemCount(): Int = data.size
     class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val textTitle = itemView.findViewById<TextView>(R.id.titleText)
+        val titleRecord = itemView.findViewById<TextView>(R.id.titleRecord)
+        val textRecord = itemView.findViewById<TextView>(R.id.textRecord)
     }
     /*
     //v2
