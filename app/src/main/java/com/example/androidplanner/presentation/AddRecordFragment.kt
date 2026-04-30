@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.androidplanner.R
 import androidx.lifecycle.*
+import androidx.room.Room
 import kotlinx.coroutines.launch
 
 class AddRecordFragment : Fragment(R.layout.fragment_add_record) {

@@ -86,7 +86,6 @@ dependencies {
     // optional - Test helpers for Lifecycle runtime
     testImplementation ("androidx.lifecycle:lifecycle-runtime-testing:$lifecycle_version")
 
-
     //Room
     var room_version = "2.8.4"
     implementation("androidx.room:room-runtime:$room_version")
