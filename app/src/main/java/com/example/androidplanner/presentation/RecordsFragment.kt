@@ -65,12 +65,9 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){
-        //Log.v("observerData", "FRAGMENT || observerData")
         var size = activity?.viewModelStore?.keys()?.size
-        //Log.v("Fragment", "FRAGMINt || VM: $size")
         activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
         var viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }
-        //Log.v("Fragment", "OK!!!!!!")
 
         lifecycleScope.launch {
             var list = viewModel?.records?.value

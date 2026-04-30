@@ -33,15 +33,15 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "records.db")
             .build()
 
         repository = DataPlannerRepository(db, RecordDbModelMapper())
-        getRecordList = GetRecordListUseCase(repository)
-
+        //getRecordList = GetRecordListUseCase(repository)
         viewModel = ViewModelProvider(
             this,
-            RecordViewModelFacory(getRecordList, mapper),
+            RecordViewModelFacory(repository, mapper),
         )[RecordViewModel::class.java]
 
         if (savedInstanceState == null) {
