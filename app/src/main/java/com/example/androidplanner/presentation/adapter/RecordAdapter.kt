@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.androidplanner.R
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidplanner.databinding.RecordItemBinding
 import com.example.androidplanner.presentation.models.PresentationRecordItem
 
 //класс для отображения элемента в общем списке
@@ -42,7 +41,7 @@ class RecordAdapter(private val context: Context) : RecyclerView.Adapter<RecordA
 
     override fun getItemCount(): Int = data.size
     class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val titleRecord = itemView.findViewById<TextView>(R.id.titleRecord)
+        val titleRecord = itemView.findViewById<TextView>(R.id.text_titleRecord)
         val textRecord = itemView.findViewById<TextView>(R.id.textRecord)
     }
     /*

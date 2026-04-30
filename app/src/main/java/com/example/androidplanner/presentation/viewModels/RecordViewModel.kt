@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import androidx.lifecycle.*
 import com.example.androidplanner.domain.useCase.GetRecordListUseCase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
 
 class RecordViewModel(private val getRecordList : GetRecordListUseCase,
     private val mapper : RecordMapper)
@@ -20,17 +20,18 @@ class RecordViewModel(private val getRecordList : GetRecordListUseCase,
     }
 
     private fun loadRecordsList(){
-        /*
-        GlobalScope.launch {
+        viewModelScope.launch {
             mutableListRecords.value = getRecordList().map { mapper.map(it) }
         }
-        */
+        //ЭТО ДЛЯ ПРОВЕРКИ
+        /*
         var list: MutableList<PresentationRecordItem> = mutableListOf();
         for(i in 1..5 step 1){
             var data = PresentationRecordItem(0,"Заметка $i", "Текст заметки $i")
             list.add(data)
         }
         mutableListRecords.value = list
+        */
 
     }
 }
