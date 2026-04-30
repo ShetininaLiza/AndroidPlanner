@@ -9,4 +9,7 @@ class RecordDbModelMapper {
             dbModel.title,
             dbModel.text)
     }
+    fun mapToDbModel(item : RecordItem) : RecordItemDbModel{
+        return RecordItemDbModel(item.id, item.title, item.text)
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.androidplanner.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.androidplanner.presentation.mapper.RecordMapper
 import com.example.androidplanner.presentation.models.PresentationRecordItem
@@ -8,7 +9,9 @@ import kotlinx.coroutines.flow.StateFlow
 import androidx.lifecycle.*
 import com.example.androidplanner.data.repository.DataPlannerRepository
 import com.example.androidplanner.domain.useCase.GetRecordListUseCase
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class RecordViewModel(private val repository: DataPlannerRepository,
     private val mapper : RecordMapper)
@@ -21,9 +24,15 @@ class RecordViewModel(private val repository: DataPlannerRepository,
     }
 
     private fun loadRecordsList(){
-        viewModelScope.launch {
+        //блокируем код, пока не считаем из БД данные
+        runBlocking {
             mutableListRecords.value = repository.getRecordsList().map { mapper.map(it) }
-                //getRecordList().map { mapper.map(it) }
+        }
+    }
+    fun addRecord(record : PresentationRecordItem){
+        viewModelScope.launch {
+            val item = mapper.mapToItem(record)
+            repository.addRecord(item)
         }
     }
 }

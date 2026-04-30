@@ -8,4 +8,7 @@ class RecordMapper {
     fun map (item : RecordItem) : PresentationRecordItem{
         return PresentationRecordItem(item.id, item.title, item.text)
     }
+    fun mapToItem(item : PresentationRecordItem): RecordItem{
+        return RecordItem(item.id, item.title, item.text)
+    }
 }

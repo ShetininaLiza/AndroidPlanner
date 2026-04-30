@@ -53,26 +53,26 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         val recordAdapter =  RecordAdapter(view.context)
         observerData()
         recordAdapter.data= recordsList;
+        Log.v("RECORDS", "SIZE: ${recordsList.size}")
         recordsRecycle.adapter = recordAdapter
 
         val btnAddRecord = view.findViewById<ImageButton>(R.id.btnAddRecord)
-
         btnAddRecord.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, AddRecordFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){
-        var size = activity?.viewModelStore?.keys()?.size
         activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
         var viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }
 
-        lifecycleScope.launch {
+        //lifecycleScope.launch {
             var list = viewModel?.records?.value
-            //Log.v("FRAGMENT", "LIST_SIZE: $list?.size.toString()")
             list?.forEach {item-> recordsList.add(item)}
-        }
+        Log.v("RECORDS", "SIZE____: ${recordsList.size}")
+        //}
     }
 }
