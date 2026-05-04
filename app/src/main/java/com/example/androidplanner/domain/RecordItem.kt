@@ -6,5 +6,5 @@ data class RecordItem(
     val id : Int,
     val title : String,
     val text : String,
-    val dataCreate : Date
+    //val dataCreate : Date
 )

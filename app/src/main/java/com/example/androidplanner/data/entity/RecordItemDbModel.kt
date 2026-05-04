@@ -1,5 +1,6 @@
 package com.example.androidplanner.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
@@ -11,5 +12,5 @@ class RecordItemDbModel(
     val id : Int,
     var title : String,
     var text : String,
-    val dateCreate : Date
+    //val dateCreate : Date
 )

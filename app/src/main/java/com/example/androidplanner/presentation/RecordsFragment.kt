@@ -33,9 +33,13 @@ import kotlin.toString
 class RecordsFragment: Fragment(R.layout.fragment_records) {
 
     var recordsList : MutableList<PresentationRecordItem> = mutableListOf()
+    lateinit var viewModel: RecordViewModel
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
+        viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }!!
     }
 
     override fun onCreateView(
@@ -53,33 +57,24 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         val recordAdapter =  RecordAdapter(view.context)
         observerData()
         recordAdapter.data= recordsList;
+        Log.v("RECORDS", "SIZE: ${recordsList.size}")
         recordsRecycle.adapter = recordAdapter
 
         val btnAddRecord = view.findViewById<ImageButton>(R.id.btnAddRecord)
-
         btnAddRecord.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainer, AddRecordFragment())
+                .addToBackStack(null)
                 .commit()
         }
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){
-        Log.v("observerData", "FRAGMENT || observerData")
-        var size = activity?.viewModelStore?.keys()?.size
-        Log.v("Fragment", "FRAGMINt || VM: $size")
-        activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
-        var viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }
-        Log.v("Fragment", "OK!!!!!!")
-
-        lifecycleScope.launch {
-            var list = viewModel?.records?.value
-            Log.v("FRAGMENT", list?.size.toString())
-            //ЭТО НАДО ДЛЯ ПРОВЕРКИ
-            for(i in 1..10 step 1){
-                var item = PresentationRecordItem(i,  "Заметка $i", "Заметка $i")
-                recordsList.add(item)
-            }
-        }
+        recordsList.clear()
+        //lifecycleScope.launch {}
+        viewModel.loadRecordsList()
+        val list = viewModel.records.value
+        list.forEach {item-> recordsList.add(item)}
+        Log.v("RECORDS", "SIZE____: ${recordsList.size}")
     }
 }

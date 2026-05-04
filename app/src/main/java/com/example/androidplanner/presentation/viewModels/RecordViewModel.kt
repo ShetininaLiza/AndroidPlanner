@@ -1,15 +1,20 @@
 package com.example.androidplanner.presentation.viewModels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.androidplanner.presentation.mapper.RecordMapper
 import com.example.androidplanner.presentation.models.PresentationRecordItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import androidx.lifecycle.*
+import com.example.androidplanner.data.repository.DataPlannerRepository
 import com.example.androidplanner.domain.useCase.GetRecordListUseCase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
-class RecordViewModel(private val getRecordList : GetRecordListUseCase,
+class RecordViewModel(private val repository: DataPlannerRepository,
     private val mapper : RecordMapper)
     : ViewModel() {
     private val mutableListRecords = MutableStateFlow<List<PresentationRecordItem>>(emptyList())
@@ -19,18 +24,18 @@ class RecordViewModel(private val getRecordList : GetRecordListUseCase,
         loadRecordsList()
     }
 
-    private fun loadRecordsList(){
-        /*
-        GlobalScope.launch {
-            mutableListRecords.value = getRecordList().map { mapper.map(it) }
+    fun loadRecordsList(){
+        //блокируем код, пока не считаем из БД данные
+        runBlocking {
+            mutableListRecords.value = repository.getRecordsList()
+                .map { mapper.map(it) }
         }
-        */
-        var list: MutableList<PresentationRecordItem> = mutableListOf();
-        for(i in 1..5 step 1){
-            var data = PresentationRecordItem(0,"Заметка $i", "Заметка $i")
-            list.add(data)
+    }
+    fun addRecord(record : PresentationRecordItem){
+        viewModelScope.launch {
+            val item = mapper.mapToItem(record)
+            repository.addRecord(item)
+            Log.v("VIEW_MODEL", "VIEW_MODEL || addRecord")
         }
-        mutableListRecords.value = list
-
     }
 }
