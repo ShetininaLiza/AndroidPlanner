@@ -12,6 +12,7 @@ import androidx.lifecycle.*
 import androidx.room.Room
 import com.example.androidplanner.presentation.models.PresentationRecordItem
 import com.example.androidplanner.presentation.viewModels.RecordViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -32,12 +33,14 @@ class AddRecordFragment : Fragment(R.layout.fragment_add_record) {
         val title = view.findViewById<TextView>(R.id.text_titleRecord).text.toString()
         val text = view.findViewById<TextView>(R.id.text_textRecord).text.toString()
         Log.v("AddRecordFragment", "CREATE RECORD || TITLE: $title, TEXT: $text")
-        lifecycleScope.launch {
-        //runBlocking {
-            var record = PresentationRecordItem(0, title, text)
+        //lifecycleScope.launch {
+        runBlocking {
+            val record = PresentationRecordItem(0, title, text)
             viewModel.addRecord(record)
-            Toast.makeText(view.context,  "Сохранено", Toast.LENGTH_LONG)
+            Toast.makeText(view.context,  "Сохранено", Toast.LENGTH_LONG).show()
+            delay(1000)
             requireActivity().onBackPressed()
         }
+        //requireActivity().onBackPressed()
     }
 }

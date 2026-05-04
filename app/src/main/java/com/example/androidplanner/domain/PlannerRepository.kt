@@ -7,7 +7,7 @@ interface  PlannerRepository{
     //метод для полкчения данных
     suspend fun getDataRecord(id : Int) : RecordItem?
     //метод для добавления записи
-    fun addRecord(record : RecordItem)
+    suspend fun addRecord(record : RecordItem)
     //метод для изменения записи
     fun updateRecord(record: RecordItem)
     //метод для удаления записи

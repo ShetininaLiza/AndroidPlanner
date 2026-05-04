@@ -33,9 +33,13 @@ import kotlin.toString
 class RecordsFragment: Fragment(R.layout.fragment_records) {
 
     var recordsList : MutableList<PresentationRecordItem> = mutableListOf()
+    lateinit var viewModel: RecordViewModel
 
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
+        viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }!!
     }
 
     override fun onCreateView(
@@ -66,13 +70,11 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){
-        activity?.viewModelStore?.keys()?.forEach { k-> Log.v("KEY VIEW MODEL", "KEY VIEW MODEL $k") }
-        var viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }
-
-        //lifecycleScope.launch {
-            var list = viewModel?.records?.value
-            list?.forEach {item-> recordsList.add(item)}
+        recordsList.clear()
+        //lifecycleScope.launch {}
+        viewModel.loadRecordsList()
+        val list = viewModel.records.value
+        list.forEach {item-> recordsList.add(item)}
         Log.v("RECORDS", "SIZE____: ${recordsList.size}")
-        //}
     }
 }

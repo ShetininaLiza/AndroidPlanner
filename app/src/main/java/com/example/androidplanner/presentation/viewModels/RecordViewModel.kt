@@ -23,10 +23,11 @@ class RecordViewModel(private val repository: DataPlannerRepository,
         loadRecordsList()
     }
 
-    private fun loadRecordsList(){
+fun loadRecordsList(){
         //блокируем код, пока не считаем из БД данные
         runBlocking {
-            mutableListRecords.value = repository.getRecordsList().map { mapper.map(it) }
+            mutableListRecords.value = repository.getRecordsList()
+                .map { mapper.map(it) }
         }
     }
     fun addRecord(record : PresentationRecordItem){

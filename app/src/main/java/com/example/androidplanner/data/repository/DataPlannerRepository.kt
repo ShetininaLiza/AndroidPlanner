@@ -52,10 +52,19 @@ class DataPlannerRepository(
         return result
     }
 
-    override fun addRecord(record: RecordItem) {
+    override suspend fun addRecord(record: RecordItem) {
+        /*
         GlobalScope.launch {
             val item = recordDbMapper.mapToDbModel(record)
             database.recordDao().addRecord(item)
+        }
+        */
+        coroutineScope{
+            launch(Dispatchers.IO) {
+                val item = recordDbMapper.mapToDbModel(record)
+                database.recordDao().addRecord(item)
+                Log.v("REPOSYTORY", "addRecord || SAVE")
+            }
         }
     }
 
