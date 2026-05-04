@@ -10,6 +10,7 @@ import androidx.lifecycle.*
 import com.example.androidplanner.data.repository.DataPlannerRepository
 import com.example.androidplanner.domain.useCase.GetRecordListUseCase
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -23,7 +24,7 @@ class RecordViewModel(private val repository: DataPlannerRepository,
         loadRecordsList()
     }
 
-fun loadRecordsList(){
+    fun loadRecordsList(){
         //блокируем код, пока не считаем из БД данные
         runBlocking {
             mutableListRecords.value = repository.getRecordsList()
@@ -34,6 +35,7 @@ fun loadRecordsList(){
         viewModelScope.launch {
             val item = mapper.mapToItem(record)
             repository.addRecord(item)
+            Log.v("VIEW_MODEL", "VIEW_MODEL || addRecord")
         }
     }
 }
