@@ -11,5 +11,7 @@ interface  PlannerRepository{
     //метод для изменения записи
     fun updateRecord(record: RecordItem)
     //метод для удаления записи
-    fun deleteRecord(id : Int)
+    suspend fun deleteRecord(record: RecordItem)
+    //метод для удаления записи по id
+    suspend fun deleteRecordById(recordId : Int)
 }

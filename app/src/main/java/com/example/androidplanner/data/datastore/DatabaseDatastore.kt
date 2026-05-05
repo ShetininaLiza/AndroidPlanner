@@ -28,4 +28,7 @@ interface DatabaseDatastore {
     @Delete
     //метод для удаления записи
     fun deleteRecord(record: RecordItemDbModel)
+
+    @Query("DELETE FROM records WHERE id = :recordId")
+    fun deleteRecordById(recordId : Int)
 }
