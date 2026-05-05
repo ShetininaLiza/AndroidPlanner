@@ -53,6 +53,8 @@ class RecordAdapter(private val context: Context, private val viewModel : Record
         builder.setNegativeButton("Да"){
                 dialog, which ->
             viewModel.removeRecordById(id)
+            viewModel.loadRecordsList()
+            data = viewModel.records.value
         }
         builder.show()
     }

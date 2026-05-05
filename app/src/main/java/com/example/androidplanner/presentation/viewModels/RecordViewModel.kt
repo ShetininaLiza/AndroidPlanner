@@ -42,7 +42,7 @@ class RecordViewModel(private val repository: DataPlannerRepository,
     fun removeRecordById(id : Int){
         viewModelScope.launch {
             repository.deleteRecordById(id)
-            Log.v("VIEW_MODEL", "VIEW_MODEL || addRecord")
+            Log.v("VIEW_MODEL", "VIEW_MODEL || removeRecordById")
         }
     }
 }
