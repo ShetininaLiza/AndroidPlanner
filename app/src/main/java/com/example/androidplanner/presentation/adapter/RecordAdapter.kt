@@ -16,11 +16,12 @@ import androidx.fragment.app.DialogFragment
 import com.example.androidplanner.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidplanner.presentation.models.PresentationRecordItem
+import com.example.androidplanner.presentation.viewModels.RecordViewModel
 
 //класс для отображения элемента в общем списке
 //private val context: Context,
 //(private val recordItemList:MutableList<PresentationRecordItem>)
-class RecordAdapter(private val context: Context) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
+class RecordAdapter(private val context: Context, private val viewModel : RecordViewModel) : RecyclerView.Adapter<RecordAdapter.RecordViewHolder>() {
     var data : List<PresentationRecordItem> = emptyList()
         set(newValue){
             field = newValue
@@ -30,21 +31,29 @@ class RecordAdapter(private val context: Context) : RecyclerView.Adapter<RecordA
         Log.v("Adapter onCreateViewHolder", "____________onCreateViewHolder")
         val itemView = LayoutInflater.from(context)
             .inflate(R.layout.record_item, parent, false)
+        val viewHolder = RecordViewHolder(itemView)
+        Log.v("ADAPTER", "____________ADAPTER || ID: ${viewHolder.idRecord}")
+        //кнопка для удаления заметки
         val btnDell = itemView.findViewById<ImageButton>(R.id.btnDelRecord)
-        btnDell.setOnClickListener { delRecord() }
-        return RecordViewHolder(itemView)
+        btnDell.setOnClickListener { delRecord(viewHolder.idRecord) }
+
+        //return RecordViewHolder(itemView)
+        return viewHolder
     }
-    fun delRecord(){
+    fun delRecord(id : Int){
         val builder = AlertDialog.Builder(context)
         builder.setTitle("Удаление")
-        //builder.setMessage("Вы хотите удалить " + phone +"?")
-        builder.setMessage("Вы хотите удалить?")
+        //id - оставила для проверки
+        builder.setMessage("Вы действительно хотите удалить данную заметку ${id}?")
         //крестик
         //builder.setIcon(android.R.drawable.ic_delete)
         //корзинка
         builder.setIcon(android.R.drawable.ic_menu_delete)
         builder.setPositiveButton("Нет", null)
-        builder.setNegativeButton("Да", null)
+        builder.setNegativeButton("Да"){
+                dialog, which ->
+            viewModel.removeRecordById(id)
+        }
         builder.show()
     }
     override fun onBindViewHolder(

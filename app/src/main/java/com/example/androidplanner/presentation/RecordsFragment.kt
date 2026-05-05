@@ -54,7 +54,7 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         super.onViewCreated(view, savedInstanceState)
         val recordsRecycle = view.findViewById<RecyclerView>(R.id.recordsList)
         recordsRecycle.layoutManager = LinearLayoutManager(view.context)
-        val recordAdapter =  RecordAdapter(view.context)
+        val recordAdapter =  RecordAdapter(view.context, viewModel)
         observerData()
         recordAdapter.data= recordsList;
         Log.v("RECORDS", "SIZE: ${recordsList.size}")

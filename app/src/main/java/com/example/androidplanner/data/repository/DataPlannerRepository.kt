@@ -66,7 +66,21 @@ class DataPlannerRepository(
         TODO("Not yet implemented")
     }
 
-    override fun deleteRecord(id: Int) {
-        TODO("Not yet implemented")
+    override suspend fun deleteRecord(record: RecordItem) {
+        coroutineScope{
+            launch(Dispatchers.IO) {
+                val item = recordDbMapper.mapToDbModel(record)
+                database.recordDao().deleteRecord(item)
+                Log.v("REPOSYTORY", "deleteRecord || DELETE")
+            }
+        }
+    }
+    override suspend fun deleteRecordById(recordId : Int){
+        coroutineScope{
+            launch(Dispatchers.IO) {
+                database.recordDao().deleteRecordById(recordId)
+                Log.v("REPOSYTORY", "deleteRecordById || DELETE_BY_ID")
+            }
+        }
     }
 }
