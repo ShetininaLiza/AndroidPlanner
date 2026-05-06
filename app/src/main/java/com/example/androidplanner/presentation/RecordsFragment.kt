@@ -8,10 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.activity.viewModels
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.fragment.compose.AndroidFragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.compose.ComposableFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidplanner.R
@@ -30,8 +37,8 @@ import java.time.LocalDateTime
 import java.util.Date
 import kotlin.toString
 
-class RecordsFragment: Fragment(R.layout.fragment_records) {
-
+class RecordsFragment: Fragment(R.layout.fragment_records)
+{
     var recordsList : MutableList<PresentationRecordItem> = mutableListOf()
     lateinit var viewModel: RecordViewModel
 
@@ -76,5 +83,15 @@ class RecordsFragment: Fragment(R.layout.fragment_records) {
         val list = viewModel.records.value
         list.forEach {item-> recordsList.add(item)}
         Log.v("RECORDS", "SIZE____: ${recordsList.size}")
+    }
+
+    @Preview(showSystemUi = true)
+    @Composable()
+    fun CreateView(){
+        Text(text = "Records Fragments",
+            style = TextStyle(
+                fontSize = 28.sp
+            )
+        )
     }
 }
