@@ -45,6 +45,7 @@ dependencies {
     //стандартные
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.foundation)
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.navigation.fragment.compose)
     implementation(libs.material)
