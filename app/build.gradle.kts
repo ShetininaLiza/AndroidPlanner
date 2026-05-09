@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.fragment.compose)
     implementation(libs.androidx.navigation.fragment.compose)
+    implementation(libs.androidx.ui.viewbinding)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
@@ -130,4 +131,15 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata")
     // Optional - Integration with RxJava
     implementation("androidx.compose.runtime:runtime-rxjava2")
+
+    //Fragment
+    val fragment_version = "1.8.9"
+    // Java language implementation
+    implementation("androidx.fragment:fragment:$fragment_version")
+    // Kotlin
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
+    // Compose
+    implementation("androidx.fragment:fragment-compose:$fragment_version")
+    // Testing Fragments in Isolation
+    debugImplementation("androidx.fragment:fragment-testing:$fragment_version")
 }

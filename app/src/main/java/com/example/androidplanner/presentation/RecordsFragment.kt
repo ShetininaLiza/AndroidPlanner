@@ -67,6 +67,7 @@ class RecordsFragment: Fragment(R.layout.fragment_records)
         Log.v("RECORDS", "SIZE: ${recordsList.size}")
         recordsRecycle.adapter = recordAdapter
 
+        /*
         val btnAddRecord = view.findViewById<ImageButton>(R.id.btnAddRecord)
         btnAddRecord.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -74,6 +75,7 @@ class RecordsFragment: Fragment(R.layout.fragment_records)
                 .addToBackStack(null)
                 .commit()
         }
+        */
     }
     @SuppressLint("RestrictedApi")
     private fun observerData(){

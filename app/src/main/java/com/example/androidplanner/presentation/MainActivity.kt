@@ -41,9 +41,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.viewinterop.AndroidViewBinding
+import androidx.fragment.compose.AndroidFragment
 import com.example.androidplanner.presentation.models.PresentationRecordItem
+import kotlin.time.Instant
 
 class MainActivity : ComponentActivity() {
     lateinit var repository : DataPlannerRepository
@@ -82,7 +87,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        /*
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "records.db")
             .build()
         repository = DataPlannerRepository(db, RecordDbModelMapper())
@@ -90,13 +94,15 @@ class MainActivity : ComponentActivity() {
             this,
             RecordViewModelFacory(repository, mapper),
         )[RecordViewModel::class.java]
+        //Тут немного ломается
+        /*
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        observerData()
         */
+        observerData()
         setContent {
             CreateView()
         }
@@ -119,6 +125,7 @@ class MainActivity : ComponentActivity() {
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.End,
             modifier =  Modifier.fillMaxSize()
+                .clip(shape= RoundedCornerShape(30.dp))
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
@@ -139,10 +146,23 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("RestrictedApi")
     private fun observerData(){
         recordsList.clear()
-        //lifecycleScope.launch {}
         viewModel.loadRecordsList()
         val list = viewModel.records.value
         list.forEach {item-> recordsList.add(item)}
         Log.v("MAIN_ACTIVITY_RECORDS", "SIZE____: ${recordsList.size}")
     }
+
+    /*
+    @Composable
+    fun OpenFragmentAddRecord() {
+        //AndroidViewBinding
+        //AndroidFragment<AddRecordFragment>()
+        AndroidViewBinding() {
+            val myFragment = fragmentContainerView.getFragment<AddRecordFragment>()
+            // Дальнейшая работа с фрагментом
+        }
+        val fragmentAdd = AndroidFragment(clazz = AddRecordFragment::class.java)
+
+    }
+    */
 }

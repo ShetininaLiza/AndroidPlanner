@@ -2,10 +2,34 @@ package com.example.androidplanner.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+//import android.widget.Button
+import androidx.compose.material3.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.viewinterop.AndroidViewBinding
 import androidx.fragment.app.Fragment
 import com.example.androidplanner.R
 import androidx.lifecycle.*
@@ -16,8 +40,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class AddRecordFragment : Fragment(R.layout.fragment_add_record) {
+class AddRecordFragment : ComponentActivity(){
+    //Fragment(R.layout.fragment_add_record) {
     lateinit var viewModel: RecordViewModel
+    /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = activity?.let { ViewModelProvider(it).get( RecordViewModel::class.java) }!!
         val size = viewModel!!.records.value.size.toString()
@@ -42,5 +68,37 @@ class AddRecordFragment : Fragment(R.layout.fragment_add_record) {
             requireActivity().onBackPressed()
         }
         //requireActivity().onBackPressed()
+    }
+    */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            CreateView()
+        }
+    }
+
+    @Preview
+    @Composable
+    fun CreateView(){
+        Box(modifier = Modifier.fillMaxSize()){
+            Column(modifier = Modifier.fillMaxSize()) {
+                TextField(value = "Заголовок",
+                    onValueChange = {},
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(5.dp)
+                )
+                TextField(value = "Текст",
+                    onValueChange = {},
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(5.dp)
+                )
+                Button(onClick = {},
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(5.dp)
+                ){
+                    Text("Добавить")
+                }
+            }
+        }
     }
 }
